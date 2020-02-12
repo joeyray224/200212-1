@@ -1,0 +1,43 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  color: #3d3d5c;
+}
+body {
+  height: 670px;
+}
+.header {
+  display: flex;
+  padding-top: 15px;
+  height: 15%;
+  width: 100%;
+  background-color: #C0C0C0;
+}
+  .header .logo {
+    width: 40%;
+    font-size: 35px;
+  }
+  .header .description {
+    width: 20%;
+    line-height: 45px;
+  }
+  .header .menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    line-height: 75px;
+    width: 40%;
+  }
+.content {
+  height: 70%;
+  width: 100%;
+  background-color: #D3D3D3;
+}
+
+.footer {
+  color: white;
+  height: 15%;
+  width: 100%;
+  background-color: #000000;
+}

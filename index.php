@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <script type="text/javascript" src="script.js" defer></script>
+    <script type="text/javascript" src="calendar.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <title></title>
   </head>
@@ -31,3 +31,4 @@
     </div>
   </body>
 </html>
+

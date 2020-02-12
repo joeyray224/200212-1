@@ -50,6 +50,9 @@ body {
         background-color: grey;
         color: black;
       }
+      #currentDate {
+          font-weight: bold;
+        }
 
 .footer {
   color: white;

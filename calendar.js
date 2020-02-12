@@ -28,6 +28,9 @@ function createTable (rows, arr) {
                  if (monthDay.getMonth() == date.getMonth()) {
                    td.setAttribute('class', 'month');
                  }
+                 if (monthDay.getDate() == date.getDate() && monthDay.getMonth() == date.getMonth()) {
+                   td.setAttribute('id', 'currentDate');
+                 }
              }
 
              tr.appendChild(td);

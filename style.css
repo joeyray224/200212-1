@@ -34,6 +34,22 @@ body {
   width: 100%;
   background-color: #D3D3D3;
 }
+  table {
+    width: 40%;
+  }
+    .week {
+      background-color: black;
+      color: white;
+    }
+    td {
+      height: 30px;
+      border: 1px solid black;
+      text-align: center;
+    }
+      .month {
+        background-color: grey;
+        color: black;
+      }
 
 .footer {
   color: white;

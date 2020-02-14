@@ -4,7 +4,7 @@
 let week = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
 let table = createTable(9, week);
-document.querySelector('.calendar').appendChild(table);
+document.querySelector('#calendar').appendChild(table);
 
 function createTable (rows, arr) {
      let table = document.createElement('table');
@@ -12,12 +12,12 @@ function createTable (rows, arr) {
      let date = new Date();
 
      let counter = 0;
+     let daysCounter = 1;
 
      for (let i = 0; i < rows; i++) {
          let tr = document.createElement('tr');
          for (let j = 0; j < arr.length; j++) {
              let td = document.createElement('td');
-
              if (i == 0) {
                  td.setAttribute('class', 'week');
                  td.innerHTML = arr[j];
@@ -25,12 +25,18 @@ function createTable (rows, arr) {
                  let monthDay = checkDate(counter++, date);
                  td.innerHTML = monthDay.getDate();
 
+                 td.setAttribute('data-count', daysCounter);
+                 daysCounter++;
+
                  if (monthDay.getMonth() == date.getMonth()) {
+
                    td.setAttribute('class', 'month');
+
+                   if (monthDay.getDate() == date.getDate() && monthDay.getMonth() == date.getMonth()) {
+                     td.setAttribute('id', 'currentDate');
+                   }
                  }
-                 if (monthDay.getDate() == date.getDate() && monthDay.getMonth() == date.getMonth()) {
-                   td.setAttribute('id', 'currentDate');
-                 }
+
              }
 
              tr.appendChild(td);
@@ -59,7 +65,6 @@ function getLastMonday (lastMonth) {
     let lastMon = new Date(lastMonth.getFullYear(), lastMonth.getMonth(), lastMonth.getDate() - (i + counter));
 
     if (lastMon.getDay() == 1) {
-      console.log(lastMon.getDate());
       return lastMon;
     }
   }

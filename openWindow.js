@@ -1,64 +1,69 @@
-let flag = false;
-
-document.querySelector("#calendar").addEventListener('click', (event) => {
-  let wrapper = document.querySelector('#wrapper');
-  let windowContent = document.querySelector('#window_content');
-
-  let date = new Date();
-  let td = event.target;
-
-  let count = td.getAttribute('data-count');
-  let currentDay = document.querySelector('#currentDate').getAttribute('data-count');
-
-  console.log (count - currentDay);
-   if (count - currentDay <= 7 && count - currentDay >= 0 || count - currentDay >= -7 && count - currentDay <= 0) {
-     wrapper.hidden = false;
-
-     if (!flag) {
-       flag = createList(windowContent);
-     }
-
-     checkTime (td, count, currentDay);
-
-     document.querySelector('#closeWindow').addEventListener('click', () => {
-           wrapper.hidden = true;
-     });
-   }
-});
-
-function createList (parrent) {
-  let ul = document.createElement('ul');
-  for (let i = 10; i <= 20; i += 2) {
-
-      let li = document.createElement('li');
-
-      li.innerHTML = i + ':00';
-      li.setAttribute('data-hour', i);
-
-      ul.appendChild(li);
+localStorage.setItem('id-666', JSON.stringify(
+  {
+    id: 1,
+    tdId: "26",
+    month: "1",
+    date: "14",
+    time: 14,
+    row: 2,
+    place: 4
   }
-  parrent.appendChild(ul);
-  return true;
+));
+
+localStorage.setItem('id-667', JSON.stringify(
+  {
+    id: 1,
+    tdId: "20",
+    month: "1",
+    date: "8",
+    time: 14,
+    row: 2,
+    place: 4
+  }
+));
+
+let tickets = getData();
+
+function getData(currentDate) {
+  let arr = [];
+
+  for (let i = 0; i < localStorage.length; i++) {
+    let key = localStorage.key(i);
+    let arrElem = JSON.parse (localStorage.getItem(key));
+
+    if (currentDate && currentDate - arrElem.tdId >= 7) {
+      localStorage.removeItem(key);
+      i--;
+    }
+      arr[i] = arrElem;
+  }
+  return arr;
 }
 
-function checkTime (td, count, currentDay) {
-  let li = document.querySelectorAll('li');
-  let date = new Date();
-  let flag = false
+document.addEventListener('DOMContentLoaded', () => {
+  let currentDate = document.querySelector('#currentDate');
+  let orderArr = document.querySelectorAll('.order');
+  tickets = getData(currentDate.getAttribute('data-count') * 1);
 
-  for (elem of li) {
-    let hour = elem.getAttribute('data-hour');
+  for (let i = 0; i < orderArr.length; i++) {
+    let flag = true;
 
-    if (currentDay <= count + 7) {
-      if (date.getHours() <= hour) {
-        flag = true;
+    for (let j = 0; j < localStorage.length; j++) {
+      let key = localStorage.key(j);
+      let arrElem = JSON.parse (localStorage.getItem(key));
+      if (orderArr[i].getAttribute('data-count') == arrElem.tdId) {
+        flag = false;
       }
-    } else {
-        elem.removeAttribute('class');
     }
 
     if (flag) {
-      elem.setAttribute('class', 'active');
+      if (orderArr[i].getAttribute == 'order' || orderArr[i].getAttribute == null) {
+        orderArr[i].removeAttribute('class');
+      } else {
+          orderArr[i].setAttribute('class', 'month');
+      }
     }
   }
-}
+
+  console.log(localStorage);
+})

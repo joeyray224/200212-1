@@ -54,6 +54,7 @@ body {
         left: 20px;
       }
       #window_content {
+        width: 40%;
         padding: 15px;
       }
 
@@ -65,7 +66,6 @@ body {
       }
        .active {
          color: black;
-         font-weight: bold;
        }
        #tickets {
          background-color: white;
@@ -81,6 +81,14 @@ body {
          #places {
            width: 100%;
            margin-top: 10px;
+         }
+         .selectedPlace {
+           background: grey;
+           color: white;
+         }
+         .selectedTime {
+           font-weight: bold;
+           color: red;
          }
   table {
     width: 40%;
@@ -102,6 +110,19 @@ body {
       }
       #currentDate {
         font-weight: bold;
+      }
+      .order {
+        font-weight: bold;
+        color: red;
+      }
+      .orderPlace {
+        font-weight: bold;
+        color: red;
+        background: black;
+      }
+      .orderTime {
+        font-weight: bold;
+        color: red;
       }
 .footer {
   color: white;

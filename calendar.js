@@ -26,6 +26,8 @@ function createTable (rows, arr) {
                  td.innerHTML = monthDay.getDate();
 
                  td.setAttribute('data-count', daysCounter);
+                 td.setAttribute('data-month', monthDay.getMonth());
+                 td.setAttribute('data-date', monthDay.getDate());
                  daysCounter++;
 
                  if (monthDay.getMonth() == date.getMonth()) {
@@ -38,7 +40,7 @@ function createTable (rows, arr) {
                  }
 
              }
-
+             checkOrderDate(td);
              tr.appendChild(td);
          }
          table.appendChild(tr);
@@ -46,6 +48,16 @@ function createTable (rows, arr) {
      return table;
 }
 
+function checkOrderDate(td) {
+  for (let i = 0; i < tickets.length; i++) {
+
+    if(td.getAttribute('data-month') == tickets[i].month && td.getAttribute('data-date') == tickets[i].date) {
+      let className = td.getAttribute('class') + ' ' + 'order';
+      td.setAttribute('class', className);
+    }
+
+  }
+}
 
  function checkDate (counter, date) {
 

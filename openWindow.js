@@ -1,69 +1,81 @@
-localStorage.setItem('id-666', JSON.stringify(
-  {
-    id: 1,
-    tdId: "26",
-    month: "1",
-    date: "14",
-    time: 14,
-    row: 2,
-    place: 4
+let flag = false;
+
+let order = {
+  id: localStorage.length,
+  tdId: "",
+  month: "",
+  date: "",
+  time: false,
+  row: false,
+  place: false
+};
+
+document.querySelector("#calendar").addEventListener('click', (event) => {
+  let wrapper = document.querySelector('#wrapper');
+  let windowContent = document.querySelector('#window_content');
+
+  let date = new Date();
+  let td = event.target;
+
+  let count = td.getAttribute('data-count');
+  let currentDay = document.querySelector('#currentDate').getAttribute('data-count');
+
+   if (count - currentDay <= 7 && count - currentDay >= 0 || count - currentDay >= -7 && count - currentDay <= 0) {
+     wrapper.hidden = false;
+     order.tdId = td.getAttribute('data-count');
+     order.month = td.getAttribute('data-month');
+     order.date = td.getAttribute('data-date');
+
+     if (!flag) {
+       flag = createList(windowContent);
+     }
+     checkTime (td, count, currentDay);
+   }
+});
+
+function createList (parrent) {
+  let ul = document.querySelector('#orderTime');
+
+  for (let i = 10; i <= 20; i += 2) {
+
+      let li = document.createElement('li');
+
+      li.innerHTML = i + ':00';
+      li.setAttribute('data-hour', i);
+
+      ul.appendChild(li);
   }
-));
-
-localStorage.setItem('id-667', JSON.stringify(
-  {
-    id: 1,
-    tdId: "20",
-    month: "1",
-    date: "8",
-    time: 14,
-    row: 2,
-    place: 4
-  }
-));
-
-let tickets = getData();
-
-function getData(currentDate) {
-  let arr = [];
-
-  for (let i = 0; i < localStorage.length; i++) {
-    let key = localStorage.key(i);
-    let arrElem = JSON.parse (localStorage.getItem(key));
-
-    if (currentDate && currentDate - arrElem.tdId >= 7) {
-      localStorage.removeItem(key);
-      i--;
-    }
-      arr[i] = arrElem;
-  }
-  return arr;
+  parrent.appendChild(ul);
+  return true;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  let currentDate = document.querySelector('#currentDate');
-  let orderArr = document.querySelectorAll('.order');
-  tickets = getData(currentDate.getAttribute('data-count') * 1);
+function checkTime (td, count, currentDay) {
+  let li = document.querySelectorAll('li');
+  let date = new Date();
 
-  for (let i = 0; i < orderArr.length; i++) {
-    let flag = true;
+  for (elem of li) {
+    let hour = elem.getAttribute('data-hour') * 1;
 
-    for (let j = 0; j < localStorage.length; j++) {
-      let key = localStorage.key(j);
-      let arrElem = JSON.parse (localStorage.getItem(key));
-      if (orderArr[i].getAttribute('data-count') == arrElem.tdId) {
-        flag = false;
-      }
+    if (date.getHours() < hour && currentDay == count|| count <= count + 7 && count > currentDay) {
+        elem.setAttribute('class', 'active');
+    } else {
+        elem.removeAttribute('class');
     }
+    checkOrdertime(elem);
+  }
+}
 
-    if (flag) {
-      if (orderArr[i].getAttribute == 'order' || orderArr[i].getAttribute == null) {
-        orderArr[i].removeAttribute('class');
+function checkOrdertime (li) {
+  let className = li.getAttribute('class');
+
+  for (let i = 0; i < tickets.length; i++) {
+    if (tickets[i].time == li.getAttribute('data-hour') && tickets[i].date == order.date && tickets[i].month == order.month) {
+      if (className == null) {
+        className = 'orderTime';
       } else {
-          orderArr[i].setAttribute('class', 'month');
+        className += ' orderTime';
       }
+      li.setAttribute('class', className);
     }
   }
-
-  console.log(localStorage);
-})
+}
